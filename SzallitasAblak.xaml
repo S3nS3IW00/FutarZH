@@ -1,0 +1,25 @@
+﻿<Window x:Class="FutarProgram.SzallitasAblak"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FutarProgram"
+        mc:Ignorable="d"
+        Title="SzallitasAblak" Height="150" Width="400">
+    <StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Célcím:"/>
+            <TextBox Name="CelcimSzoveg" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Szállított tömeg:"/>
+            <TextBox Name="SzallitottTomegSzoveg" Width="200" PreviewTextInput="TomegSzovegEllenorzes"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Indulás dátuma:"/>
+            <DatePicker Name="IndulasDatuma" Width="200"/>
+        </StackPanel>
+        <Button Name="OkGomb" Content="OK" HorizontalAlignment="Center" Margin="0,10,0,0" Click="Ok"/>
+    </StackPanel>
+</Window>

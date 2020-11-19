@@ -1,0 +1,56 @@
+﻿<Window x:Class="FutarProgram.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FutarProgram"
+        xmlns:c="clr-namespace:FutarProgram.Konverterek"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="600">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Futár kiválasztása:"/>
+            <ComboBox Name="Futarok" ItemsSource="{Binding Futarok}" SelectedItem="{Binding Futar}" Width="400" SelectionChanged="FutarKijeloles">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} ({1})">
+                                    <Binding Path="Nev" />
+                                    <Binding Path="SzallitoeszkozTipus" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="Új futár >>" Margin="10,0,0,0" Click="UjFutar"/>
+        </StackPanel>
+        <StackPanel Margin="100,0,0,0" Height="150">
+            <TextBlock Text="{Binding Futar.Nev, StringFormat=Név: {0}}"/>
+            <TextBlock Text="{Binding Futar.SzallitoeszkozTipus, StringFormat=Szállítóeszköz típusa: {0}}"/>
+            <TextBlock Text="{Binding Futar.SzallitoeszkozLeiras, StringFormat=Szállítóeszköz leírása: {0}}"/>
+            <TextBlock Text="{Binding Futar.MaxTomeg, StringFormat=Max. szállított tömeg: {0}kg}"/>
+        </StackPanel>
+        <Label Content="Mai szállításai:"/>
+        <ListBox Name="Szallitasok" ItemsSource="{Binding Futar.Szallitasok}" Height="200">
+            <ListBox.Resources>
+                <c:ErkezesKonverter x:Key="ErkezesKonverter"/>
+            </ListBox.Resources>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding CelCim, StringFormat=Célcím: {0}}"/>
+                        <TextBlock Text="{Binding Tomeg, StringFormat=Szállított tömeg: {0}kg}"/>
+                        <TextBlock Text="{Binding Indulas, StringFormat=Indulás dátuma: {0}}"/>
+                        <TextBlock Text="{Binding Erkezes, Converter={StaticResource ErkezesKonverter}, StringFormat=Visszaérezés dátuma: {0}}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="UjSzallitasGomb" Content="Új szállítás..." Click="UjSzallitas"/>
+            <Button Name="VisszaerkezettGomb" Content="Visszaérkezett!" Margin="5,0,0,0" Click="Visszaerkezett"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
